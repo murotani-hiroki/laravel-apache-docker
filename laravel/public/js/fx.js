@@ -74,7 +74,6 @@ $(function() {
 
     // モーダル saveボタン
     $(document).on('click', '#saveBtn', function() {
-        // モーダルを新規表示
         $.ajax({
             url: '/save',
             type: 'post',
@@ -93,7 +92,7 @@ $(function() {
                 comment: $('#comment').val()
             },
         }).done (function(data) {
-            if (data.errors.length) {
+            if (data.errors) {
             // エラーの場合
                 alert(data.errors.join('\n'));
             } else {

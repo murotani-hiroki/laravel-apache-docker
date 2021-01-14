@@ -19,3 +19,6 @@ Route::get('/', function () {
 });
 
 Route::any('/search', 'FxController@search');
+Route::any('/new', 'FxController@newModal');
+Route::any('/save', 'FxController@save');
+Route::any('/edit', 'FxController@editModal');
