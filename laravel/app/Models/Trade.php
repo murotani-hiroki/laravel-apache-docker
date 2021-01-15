@@ -78,7 +78,7 @@ class Trade
      */
     public function getTradingDate(): ?string
     {
-        return $this->tradingDate;
+        return date('Y/m/d',strtotime($this->tradingDate));
     }
 
     /**
@@ -96,7 +96,7 @@ class Trade
      */
     public function getSettlementDate(): ?string
     {
-        return $this->settlementDate;
+        return date('Y/m/d',strtotime($this->settlementDate));
     }
 
     /**

@@ -111,8 +111,8 @@ class TradeRepository implements ITradeRepository
     /**
      * @inheritDoc
      */
-    public function delete(int $id): void
+    public function delete(array $ids): void
     {
-        // TODO: Implement delete() method.
+        \DB::table('trade')->whereIn('id', $ids)->delete();
     }
 }

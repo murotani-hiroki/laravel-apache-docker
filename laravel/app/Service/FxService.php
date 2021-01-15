@@ -70,4 +70,13 @@ class FxService
             Log::debug('##### inserted. newId=' . $newId);
         }
     }
+
+    /**
+     * 削除
+     * @param array $deleteIds
+     */
+    public function delete(array $deleteIds)
+    {
+        $this->tradeRepository->delete($deleteIds);
+    }
 }

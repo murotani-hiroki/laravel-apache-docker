@@ -18,14 +18,13 @@ $(function() {
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             data: { fromDate: $('#fromDate').val(), toDate: $('#toDate').val() },
         }).done (function(data) {
-            if ($(data).attr('id') == 'errors') {
-                // エラーの場合
-                var errors = $(data).find('span').map(function() { return $(this).html() }).get();
-                alert(errors.join('\n'));
-            } else {
-                // 正常の場合
-                $('#trade-list-box').html(data);
-            }
+            // 正常の場合
+            $('#trade-list-box').html(data);
+        }).fail(function (data){
+            // エラーの場合
+            const errors = data.responseJSON.errors;
+            const messages = Object.keys(errors).map(key => errors[key].join('\n'));
+            alert(messages.join('\n'));
         });
     });
 
@@ -52,9 +51,11 @@ $(function() {
             type: 'post',
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             data: { deleteIds: deleteIds }
-        }).done (function(msg) {
-            alert(msg);
-            $('#searchBtn').trigger('click');
+        }).done (function(data) {
+            if (data) {
+                alert(data.message);
+                $('#searchBtn').trigger('click');
+            }
         });
     });
 
@@ -92,18 +93,19 @@ $(function() {
                 comment: $('#comment').val()
             },
         }).done (function(data) {
-            if (data.errors) {
-            // エラーの場合
-                alert(data.errors.join('\n'));
-            } else {
             // 正常の場合
-                alert(data.message);
-                // モーダルを閉じる。
-                $('#modalContainer').remove();
-                $('#searchBtn').trigger('click');
-            }
+            alert(data.message);
+            // モーダルを閉じる。
+            $('#modalContainer').remove();
+            $('#searchBtn').trigger('click');
+        }).fail(function (data){
+            // エラーの場合
+            const errors = data.responseJSON.errors;
+            const messages = Object.keys(errors).map(key => errors[key].join('\n'));
+            alert(messages.join('\n'));
         });
     });
+
     // モーダル枠外のクリック
     $(document).on('click', '.overlay', function() {
         // モーダルを閉じる。

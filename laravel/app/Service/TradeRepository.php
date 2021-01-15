@@ -35,7 +35,7 @@ interface TradeRepository
     public function update(Trade $trade) : void;
 
     /**
-     * @param int $id
+     * @param array $ids
      */
-    public function delete(int $id) : void;
+    public function delete(array $ids) : void;
 }

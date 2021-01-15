@@ -4,6 +4,8 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Requests\SaveRequest;
+use App\Http\Requests\SearchRequest;
 use App\Models\Trade;
 use App\Service\FxService;
 use Illuminate\Http\Request;
@@ -25,14 +27,14 @@ class FxController extends Controller
 
     /**
      * 検索
-     * @param Request $request
+     * @param SearchRequest $request
      * @return \Illuminate\View\View
      */
-    public function search(Request $request) {
+    public function search(SearchRequest $request) {
         $fromDate = $request->input('fromDate');
         $toDate = $request->input('toDate');
-        Log::debug($fromDate);
-        Log::debug($toDate);
+        //Log::debug($fromDate);
+        //Log::debug($toDate);
 
         $trades = $this->fxService->search($fromDate, $toDate);
         return view('trade_list', ['trades' => $trades]);
@@ -71,7 +73,7 @@ class FxController extends Controller
      * @param Request $request
      * @return \Illuminate\View\View
      */
-    public function save(Request $request) {
+    public function save(SaveRequest $request) {
 
         $trade = Trade::create()
             ->setId($request->input('id'))
@@ -93,5 +95,19 @@ class FxController extends Controller
         return ['message' => '登録しました。'];
     }
 
+    /**
+     * 削除
+     * @param Request $request
+     * @return \Illuminate\View\View
+     */
+    public function delete(Request $request) {
+        $deleteIds = $request->input('deleteIds');
+        //Log::debug(print_r($deleteIds, true));
+        if ($deleteIds) {
+            $this->fxService->delete($deleteIds);
+            return ['message' => '削除しました。'];
+        }
+        return null;
+    }
 }
 
