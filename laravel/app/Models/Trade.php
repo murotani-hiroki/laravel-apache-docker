@@ -78,7 +78,10 @@ class Trade
      */
     public function getTradingDate(): ?string
     {
-        return date('Y/m/d',strtotime($this->tradingDate));
+        if ($this->tradingDate) {
+            return date('Y/m/d',strtotime($this->tradingDate));
+        }
+        return null;
     }
 
     /**
@@ -96,7 +99,10 @@ class Trade
      */
     public function getSettlementDate(): ?string
     {
-        return date('Y/m/d',strtotime($this->settlementDate));
+        if ($this->settlementDate) {
+            return date('Y/m/d',strtotime($this->settlementDate));
+        }
+        return null;
     }
 
     /**

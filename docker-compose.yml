@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  php74apache:
+    container_name: php74apache
+    restart: always
+    build: .
+    ports:
+      - 8080:80
+    volumes:
+      - ./laravel:/var/www/html
+    networks:
+      laravel_net:
+        ipv4_address: 172.100.0.2
+  postgres13:
+    container_name: postgres13
+    restart: always
+    image: postgres:latest
+    ports:
+      - 54321:5432
+    environment:
+      POSTGRES_PASSWORD: muro1968
+    volumes:
+      - psql13_volume:/var/lib/postgresql/data
+    networks:
+      laravel_net:
+        ipv4_address: 172.100.0.3
+volumes:
+  psql13_volume:
+    name: psql13_volume  # 指定しないと {Current Dir}_psql13_volume と長い名前になってしまう。
+
+networks:
+  laravel_net:
+    name: laravel_net   # 指定しないと {Current Dir}_laravel_net と長い名前になってしまう。
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.100.0.0/16
+          gateway: 172.100.0.1

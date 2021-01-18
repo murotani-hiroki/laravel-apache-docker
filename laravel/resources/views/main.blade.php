@@ -7,7 +7,7 @@
 </head>
 <body>
 <div id="main">
-    <h1 class="title">じどりのFX</h1>
+    <h1 class="title">Laravel FX</h1>
 
     <div class="margin-left10" style="display:flex">
         <input type="text" id="fromDate"><span>〜</span><input type="text" id="toDate">
