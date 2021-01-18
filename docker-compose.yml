@@ -2,18 +2,18 @@ version: '3.8'
 
 services:
   php74apache:
-    container_name: php74apache
+    container_name: php74apache  # 指定しないと {Current Dir}_php74apache_1 と長い名前になってしまう。
     restart: always
-    build: .
+    build: .  # Current Dir の Dockerfile を元にビルドする。
     ports:
       - 8080:80
     volumes:
-      - ./laravel:/var/www/html
+      - ./laravel:/var/www/html # {laravel Dir} をコンテナにマウントする。
     networks:
       laravel_net:
         ipv4_address: 172.100.0.2
   postgres13:
-    container_name: postgres13
+    container_name: postgres13  # 指定しないと {Current Dir}_postgres13_1 と長い名前になってしまう。
     restart: always
     image: postgres:latest
     ports:
@@ -21,7 +21,7 @@ services:
     environment:
       POSTGRES_PASSWORD: muro1968
     volumes:
-      - psql13_volume:/var/lib/postgresql/data
+      - psql13_volume:/var/lib/postgresql/data  # 名前付ボリュームをPostgreSQLのデータDirにマントする。
     networks:
       laravel_net:
         ipv4_address: 172.100.0.3

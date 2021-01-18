@@ -18,7 +18,7 @@ docker run -dit --name php74apache -p 8080:80 -v `pwd`/laravel:/var/www/html php
 
 ### 4. PostgreSQLコンテナを作成
 `
-$ docker run --name postgres13 -e POSTGRES_PASSWORD=muro1968 -p 54321:5432 -v psql13_volume:/var/lib/postgresql/data -d postgres:latest
+docker run --name postgres13 -e POSTGRES_PASSWORD=muro1968 -p 54321:5432 -v psql13_volume:/var/lib/postgresql/data -d postgres:latest
 `
 
 
