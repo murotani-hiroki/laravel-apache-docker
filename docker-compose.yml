@@ -22,6 +22,7 @@ services:
       POSTGRES_PASSWORD: muro1968
     volumes:
       - psql13_volume:/var/lib/postgresql/data  # 名前付ボリュームをPostgreSQLのデータDirにマントする。
+      - ./ddl.sql:/docker-entrypoint-initdb.d/ddl.sql  # テーブル作成DDL
     networks:
       laravel_net:
         ipv4_address: 172.100.0.3
