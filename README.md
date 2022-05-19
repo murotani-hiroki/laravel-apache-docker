@@ -38,4 +38,20 @@ docker-compose up -d
 ### DB／テーブル作成〜初期データインポート
 `
 psql -U postgres -h 127.0.0.1 -p 54321 -f ddl.sql
+
+
+### VSCode のlaunch.jsonを作成してpathMappingsを追加
+`
+        {
+            "name": "Listen for Xdebug",
+            "type": "php",
+            "request": "launch",
+            "port": 9003,
+            "pathMappings": {
+                "/var/www/html":"/Users/hmurotani/Documents/workspace_php/laravel-apache-docker8/src"
+            }
+        },
+`
+
+
 `

@@ -9,5 +9,6 @@ RUN ln -s /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/rew
 # postgreSQLのドライバーをインストール
 RUN apt-get update && \
     apt-get -y install libpq-dev && \
-    docker-php-ext-install pdo_pgsql
+    docker-php-ext-install pdo_pgsql && \
+    pecl install xdebug && docker-php-ext-enable xdebug
 

@@ -9,6 +9,7 @@ services:
       - 8080:80
     volumes:
       - ./laravel:/var/www/html # {laravel Dir} をコンテナにマウントする。
+      - ./xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
     networks:
       laravel_net:
         ipv4_address: 172.100.0.2
