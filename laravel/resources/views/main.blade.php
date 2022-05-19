@@ -18,8 +18,8 @@
 
     <div class="margin-left10" style="margin-top: 10px;">
         <span style="">損益合計</span>
-        <span>¥0</span>
-        <span>$0</span>
+        <span>¥<span id="jpyTotal">0</span></span>
+        <span>$<span id="usdTotal">0</span></span>
     </div>
 
     <div id="trade-list-box">

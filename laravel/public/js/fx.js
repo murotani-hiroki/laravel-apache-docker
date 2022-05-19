@@ -7,6 +7,7 @@ $(function() {
         data: {},
     }).done (function(data) {
         $('#trade-list-box').html(data);
+        sumTotal();
     });
 
     // searchボタン
@@ -20,6 +21,7 @@ $(function() {
         }).done (function(data) {
             // 正常の場合
             $('#trade-list-box').html(data);
+            sumTotal();
         }).fail(function (data){
             // エラーの場合
             const errors = data.responseJSON.errors;
@@ -56,6 +58,7 @@ $(function() {
                 alert(data.message);
                 $('#searchBtn').trigger('click');
             }
+            sumTotal();
         });
     });
 
@@ -98,6 +101,7 @@ $(function() {
             // モーダルを閉じる。
             $('#modalContainer').remove();
             $('#searchBtn').trigger('click');
+            sumTotal();
         }).fail(function (data){
             // エラーの場合
             const errors = data.responseJSON.errors;
@@ -111,4 +115,24 @@ $(function() {
         // モーダルを閉じる。
         $('#modalContainer').remove();
     });
+
+    // 合計の算出
+    function sumTotal() {
+        var jpyTotal = 0;
+        $('#trade-list').find('tr').filter(function() {
+            return $(this).find('td').eq(3).text().endsWith('JPY')
+        }).each(function(i) {
+            jpyTotal += parseFloat($(this).find('.profit').text());
+        })
+
+        var usdTotal = 0;
+        $('#trade-list').find('tr').filter(function() {
+            return $(this).find('td').eq(3).text().endsWith('USD')
+        }).each(function(i) {
+            usdTotal += parseFloat($(this).find('.profit').text());
+        })
+
+        $('#jpyTotal').html(jpyTotal);
+        $('#usdTotal').html(usdTotal);
+    }
 })
