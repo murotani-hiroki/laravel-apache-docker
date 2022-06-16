@@ -80,7 +80,7 @@ class TradeRepository implements ITradeRepository
             'trade_type' => $trade->getTradeType(),
             'quantity' => $trade->getQuantity(),
             'entry_price' => $trade->getEntryPrice(),
-            'exit_price' => $trade->getEntryPrice(),
+            'exit_price' => $trade->getExitPrice(),
             'stop_loss' => $trade->getStopLoss(),
             'profit' => $trade->getProfit(),
             'comment' => $trade->getComment()
@@ -101,7 +101,7 @@ class TradeRepository implements ITradeRepository
                 'trade_type' => $trade->getTradeType(),
                 'quantity' => $trade->getQuantity(),
                 'entry_price' => $trade->getEntryPrice(),
-                'exit_price' => $trade->getEntryPrice(),
+                'exit_price' => $trade->getExitPrice(),
                 'stop_loss' => $trade->getStopLoss(),
                 'profit' => $trade->getProfit(),
                 'comment' => $trade->getComment()
