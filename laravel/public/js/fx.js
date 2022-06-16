@@ -1,9 +1,8 @@
 $(function() {
     // 初期表示（一覧検索）
-    $.ajax({
+    doAjax({
         url: '/search',
         type: 'post',
-        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
         data: {},
     }).done (function(data) {
         $('#trade-list-box').html(data);
@@ -13,30 +12,23 @@ $(function() {
     // searchボタン
     $('#searchBtn').on('click', function() {
         // 一覧検索
-        $.ajax({
+        doAjax({
             url: '/search',
             type: 'post',
-            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             data: { fromDate: $('#fromDate').val(), toDate: $('#toDate').val() },
         }).done (function(data) {
             // 正常の場合
             $('#trade-list-box').html(data);
             sumTotal();
-        }).fail(function (data){
-            // エラーの場合
-            const errors = data.responseJSON.errors;
-            const messages = Object.keys(errors).map(key => errors[key].join('\n'));
-            alert(messages.join('\n'));
         });
     });
 
     // addボタン
     $('#addBtn').on('click', function() {
         // モーダルを新規表示
-        $.ajax({
+        doAjax({
             url: '/new',
             type: 'post',
-            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             data: {},
         }).done (function(data) {
             $('body').append(data);
@@ -48,10 +40,9 @@ $(function() {
         var deleteIds = $('.deleteId:checked').map(function() {
             return $(this).val();
         }).get();
-        $.ajax({
+        doAjax({
             url: '/delete',
             type: 'post',
-            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             data: { deleteIds: deleteIds }
         }).done (function(data) {
             if (data) {
@@ -66,10 +57,9 @@ $(function() {
     $(document).on('click', '.tradeId', function(e) {
         e.preventDefault();
         // モーダルを編集表示
-        $.ajax({
+        doAjax({
             url: '/edit',
             type: 'post',
-            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             data: { id: $(this).html() },
         }).done (function(data) {
             $('body').append(data);
@@ -78,10 +68,9 @@ $(function() {
 
     // モーダル saveボタン
     $(document).on('click', '#saveBtn', function() {
-        $.ajax({
+        doAjax({
             url: '/save',
             type: 'post',
-            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             data: {
                 id: $('#tradeId').html(),
                 tradingDate: $('#tradingDate').val(),
@@ -102,13 +91,26 @@ $(function() {
             $('#modalContainer').remove();
             $('#searchBtn').trigger('click');
             sumTotal();
+        });
+    });
+
+    function doAjax(data) {
+        var deferred = $.Deferred();
+        data.headers = { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') };
+
+        $.ajax(data).done(function(data) {
+            // 利用側の正常処理
+            deferred.resolve(data);
         }).fail(function (data){
             // エラーの場合
             const errors = data.responseJSON.errors;
             const messages = Object.keys(errors).map(key => errors[key].join('\n'));
             alert(messages.join('\n'));
         });
-    });
+
+        return deferred.promise();
+            
+    }
 
     // モーダル枠外のクリック
     $(document).on('click', '.overlay', function() {
@@ -131,8 +133,13 @@ $(function() {
         }).each(function(i) {
             usdTotal += parseFloat($(this).find('.profit').text());
         })
-
+        
         $('#jpyTotal').html(jpyTotal);
         $('#usdTotal').html(usdTotal);
+        [$('#jpyTotal'), $('#usdTotal')].forEach(function(e, i) {
+            if (parseFloat(e.html()) < 0) {
+                e.addClass('minus');
+            }
+        })
     }
 })
