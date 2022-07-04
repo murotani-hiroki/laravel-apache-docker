@@ -1,8 +1,8 @@
 version: '3.8'
 
 services:
-  php74apache:
-    container_name: php74apache  # 指定しないと {Current Dir}_php74apache_1 と長い名前になってしまう。
+  php81apache:
+    container_name: php81apache  # 指定しないと {Current Dir}_php81apache_1 と長い名前になってしまう。
     restart: always
     build: .  # Current Dir の Dockerfile を元にビルドする。
     ports:

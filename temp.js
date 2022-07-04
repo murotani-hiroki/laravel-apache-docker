@@ -1,0 +1,11 @@
+var today = new Date();
+var date = today.getFullYear() + '/' + ('00' + (today.getMonth() + 1)).slice(-2) + '/' + today.getDate()
+document.getElementById('tradingDate').value = date;
+document.getElementById('settlementDate').value = date;
+document.getElementsByName('tradeType')[0].checked = true
+document.getElementById('quantity').value = 10000;
+document.getElementById('entryPrice').value = 120;
+document.getElementById('exitPrice').value = 121;
+document.getElementById('stopLoss').value = 20;
+document.getElementById('profit').value = 10000;
+document.getElementById('comment').value = 'Yeah!!';

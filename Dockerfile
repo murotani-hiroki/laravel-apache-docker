@@ -1,4 +1,4 @@
-FROM php:7.4-apache
+FROM php:8.1-apache
 
 # DocumentRootの指定及び、AllowOverride All を指定した confファイル を配布。
 COPY ./000-default.conf /etc/apache2/sites-available/000-default.conf

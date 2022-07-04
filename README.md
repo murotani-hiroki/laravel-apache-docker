@@ -2,7 +2,7 @@
 ## dockerコマンド使用
 ### 1. composerでLaravelをインストール
 `
-composer create-project --prefer-dist "laravel/laravel=7.*" laravel
+composer create-project --prefer-dist "laravel/laravel" laravel
 `
 ### 2. Dockerfileを元にイメージを作t成
 `

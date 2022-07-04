@@ -18,8 +18,10 @@ Route::get('/', function () {
     return view('main');
 });
 
-Route::any('/search', 'FxController@search');
-Route::any('/new', 'FxController@newModal');
-Route::any('/save', 'FxController@save');
-Route::any('/edit', 'FxController@editModal');
-Route::any('/delete', 'FxController@delete');
+Route::any('/search', 'App\Http\Controllers\FxController@search');
+Route::any('/new', 'App\Http\Controllers\FxController@newModal');
+Route::any('/save', 'App\Http\Controllers\FxController@save');
+Route::any('/edit', 'App\Http\Controllers\FxController@editModal');
+Route::any('/delete', 'App\Http\Controllers\FxController@delete');
+
+
